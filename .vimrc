@@ -43,6 +43,9 @@ set shiftround
 set expandtab
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
 
+" Rabl highlight
+au BufRead,BufNewFile *.rabl setf ruby
+
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
 
@@ -91,3 +94,6 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+" maps jj to  esc so I can exit insert mode quicker
+ino jj <esc>
+cno jj <c-c>
