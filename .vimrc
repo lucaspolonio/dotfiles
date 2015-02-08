@@ -25,7 +25,7 @@ set ignorecase
 set incsearch
 "Reset highlighted search when ENTER is pressed
 nnoremap <silent> <CR> :let @/=""<CR><CR>
-set wildignore+=ci/**/*,docs/**/*
+set wildignore+=lib/vendor,tmp,ci,docs
 
 " Solarized dark
 syntax enable
@@ -86,14 +86,18 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
 " Syntastic - syntax checker
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
+"let g:syntastic_always_populate_loc_list = 1
+"let g:syntastic_auto_loc_list = 1
+"let g:syntastic_check_on_open = 1
+"let g:syntastic_check_on_wq = 0
 
 " maps jj to  esc so I can exit insert mode quicker
 ino jj <esc>
 cno jj <c-c>
+
+" ctrl-d to go to shell and come back
+noremap <C-d> :sh<cr>
+

@@ -1,0 +1,5 @@
+--ignore-dir=ci
+--ignore-dir=docs
+--ignore-dir=tmp
+--ignore-dir=lib/vendor
+
