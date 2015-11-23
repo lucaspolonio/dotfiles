@@ -68,6 +68,7 @@ let g:airline_theme = 'solarized'
 autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+let g:NERDTreeWinSize=50
 
 " Smooth scrolling
 noremap <silent> <c-k> :call smooth_scroll#up(&scroll, 0, 2)<CR>
@@ -100,4 +101,17 @@ cno jj <c-c>
 
 " ctrl-d to go to shell and come back
 noremap <C-d> :sh<cr>
+
+" use ; instead of :
+nnoremap ; :
+
+" use ag on ack.vim if ag is available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+set noswapfile
+
+" Keep 3 lines below and above the cursor
+set scrolloff=10
 
