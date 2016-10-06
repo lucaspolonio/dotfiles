@@ -25,7 +25,6 @@ set ignorecase
 set incsearch
 "Reset highlighted search when ENTER is pressed
 nnoremap <silent> <CR> :let @/=""<CR><CR>
-set wildignore+=lib/vendor,tmp,ci,docs
 
 " Solarized dark
 syntax enable
@@ -49,10 +48,6 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " Buffers
 set hidden
 nmap <leader>T :enew<cr>
-nmap <leader>l :bnext<CR>
-nmap <leader>h :bprevious<CR>
-nmap <leader>bq :bp <BAR> bd #<CR>
-nmap <leader>bl :ls<CR>
 
 " Status Line and vim-airline
 set laststatus=2
