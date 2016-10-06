@@ -2,7 +2,7 @@ set nocompatible
 
 execute pathogen#infect()
 
-" wrap git commit messages
+" Git commit messages wrapping
 " gq<motion> / visual mode selection + gq reformat existing text
 au FileType gitcommit set tw=72
 au FileType gitcommit set cc=72
@@ -60,6 +60,7 @@ let g:airline_theme = 'solarized'
 autocmd StdinReadPre * let s:std_in=1
 "autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
+map <C-m> :NERDTreeFind<CR>
 let g:NERDTreeWinSize=50
 
 " Smooth scrolling
