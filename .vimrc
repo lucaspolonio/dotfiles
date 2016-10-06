@@ -48,6 +48,16 @@ set list listchars=tab:»·,trail:·,nbsp:·
 " Buffers
 set hidden
 nmap <leader>T :enew<cr>
+nmap <leader>l :bnext<CR>
+nmap <leader>h :bprevious<CR>
+nmap <leader>bq :bp <BAR> bd #<CR>
+nmap <leader>bl :ls<CR>
+
+" Quicker movement across buffers
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-h> <C-w>h
+nnoremap <C-l> <C-w>l
 
 " Status Line and vim-airline
 set laststatus=2
@@ -57,27 +67,13 @@ let g:airline_powerline_fonts = 1
 let g:airline_theme = 'solarized'
 
 " Nerdtree
-autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
 map <C-m> :NERDTreeFind<CR>
 let g:NERDTreeWinSize=50
 
-" Smooth scrolling
-noremap <silent> <c-k> :call smooth_scroll#up(&scroll, 0, 2)<CR>
-noremap <silent> <c-j> :call smooth_scroll#down(&scroll, 0, 2)<CR>
-noremap <silent> <c-b> :call smooth_scroll#up(&scroll*2, 0, 4)<CR>
-noremap <silent> <c-f> :call smooth_scroll#down(&scroll*2, 0, 4)<CR>
-
-" Open new split panes to right and bottom, which feels more natural
+" Open new split panes to right/bottom, which feels more natural
 set splitbelow
 set splitright
-
-" Quicker window movement
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
 
 " Syntastic - syntax checker
 "set statusline+=%#warningmsg#
@@ -88,22 +84,16 @@ nnoremap <C-l> <C-w>l
 "let g:syntastic_check_on_open = 1
 "let g:syntastic_check_on_wq = 0
 
-" maps jj to  esc so I can exit insert mode quicker
-ino jj <esc>
-cno jj <c-c>
-
-" ctrl-d to go to shell and come back
+" ctrl-d to go to shell and come back with same keys
 noremap <C-d> :sh<cr>
-
-" use ; instead of :
-nnoremap ; :
 
 " use ag on ack.vim if ag is available
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" No annoying swap files
 set noswapfile
 
-" Keep 3 lines below and above the cursor
+" Always keep at least 10 lines below and above the cursor when scrolling
 set scrolloff=10
