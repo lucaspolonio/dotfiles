@@ -3,3 +3,5 @@
 --ignore-dir=tmp
 --ignore-dir=log/
 --ignore-dir=lib/vendor
+--ignore-dir=tags/
+--ignore-file=ext:a

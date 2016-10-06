@@ -2,15 +2,15 @@ set nocompatible
 
 execute pathogen#infect()
 
-" Mouse
-set mouse=a
-set ttymouse=xterm
-
-" Git commit specifics
+" wrap git commit messages
+" gq<motion> / visual mode selection + gq reformat existing text
 au FileType gitcommit set tw=72
 au FileType gitcommit set cc=72
 
+" Syntax highlighting
 filetype plugin indent on
+au BufRead,BufNewFile *.go set filetype=go
+au BufRead,BufNewFile *.rabl setf ruby
 syntax on
 
 " Leader comma
@@ -30,7 +30,6 @@ set wildignore+=lib/vendor,tmp,ci,docs
 " Solarized dark
 syntax enable
 set background=dark
-let g:solarized_termcolors=256
 colorscheme solarized
 
 " Line numbers
@@ -42,9 +41,7 @@ set shiftwidth=2
 set shiftround
 set expandtab
 autocmd Filetype python setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4
-
-" Rabl highlight
-au BufRead,BufNewFile *.rabl setf ruby
+autocmd Filetype go setlocal noexpandtab tabstop=2 shiftwidth=2 softtabstop=2
 
 " Display extra whitespace
 set list listchars=tab:»·,trail:·,nbsp:·
@@ -114,4 +111,3 @@ set noswapfile
 
 " Keep 3 lines below and above the cursor
 set scrolloff=10
-
