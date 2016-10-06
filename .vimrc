@@ -1,6 +1,8 @@
 set nocompatible
-
 execute pathogen#infect()
+
+" Leader comma
+let mapleader = ","
 
 " Git commit messages wrapping
 " gq<motion> / visual mode selection + gq reformat existing text
@@ -13,9 +15,6 @@ au BufRead,BufNewFile *.go set filetype=go
 au BufRead,BufNewFile *.rabl setf ruby
 syntax on
 
-" Leader comma
-let mapleader = ","
-
 " Command line completion
 set wildmenu
 
@@ -23,7 +22,8 @@ set wildmenu
 set hlsearch
 set ignorecase
 set incsearch
-"Reset highlighted search when ENTER is pressed
+
+" Reset highlighted search when ENTER is pressed
 nnoremap <silent> <CR> :let @/=""<CR><CR>
 
 " Solarized dark
@@ -59,7 +59,11 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-h> <C-w>h
 nnoremap <C-l> <C-w>l
 
-" Status Line and vim-airline
+" Open new split panes to right/bottom, which feels more natural
+set splitbelow
+set splitright
+
+" Statusline and vim-airline
 set laststatus=2
 set ttimeoutlen=50
 let g:airline#extensions#tabline#enabled = 1
@@ -70,19 +74,6 @@ let g:airline_theme = 'solarized'
 map <C-n> :NERDTreeToggle<CR>
 map <C-m> :NERDTreeFind<CR>
 let g:NERDTreeWinSize=50
-
-" Open new split panes to right/bottom, which feels more natural
-set splitbelow
-set splitright
-
-" Syntastic - syntax checker
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 1
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 0
 
 " ctrl-d to go to shell and come back with same keys
 noremap <C-d> :sh<cr>
