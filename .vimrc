@@ -72,7 +72,7 @@ let g:airline_theme = 'solarized'
 
 " Nerdtree
 map <C-n> :NERDTreeToggle<CR>
-map <C-m> :NERDTreeFind<CR>
+map <C-j> :NERDTreeFind<CR>
 let g:NERDTreeWinSize=50
 
 " ctrl-d to go to shell and come back with same keys
