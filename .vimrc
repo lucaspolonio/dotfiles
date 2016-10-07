@@ -1,19 +1,33 @@
 set nocompatible
-execute pathogen#infect()
+filetype off
+
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'wincent/command-t'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'myusuf3/numbers.vim'
+Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/Syntastic'
+Plugin 'vim-airline/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'elixir-lang/vim-elixir'
+call vundle#end()
 
 " Leader comma
 let mapleader = ","
-
-" Git commit messages wrapping
-" gq<motion> / visual mode selection + gq reformat existing text
-au FileType gitcommit set tw=72
-au FileType gitcommit set cc=72
 
 " Syntax highlighting
 filetype plugin indent on
 au BufRead,BufNewFile *.go set filetype=go
 au BufRead,BufNewFile *.rabl setf ruby
 syntax on
+
+" No annoying swap files
+set noswapfile
 
 " Command line completion
 set wildmenu
@@ -33,6 +47,9 @@ colorscheme solarized
 
 " Line numbers
 set number
+
+" Always keep at least 10 lines below and above the cursor when scrolling
+set scrolloff=10
 
 " Softtabs, 2 spaces
 set tabstop=2
@@ -83,8 +100,7 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" No annoying swap files
-set noswapfile
-
-" Always keep at least 10 lines below and above the cursor when scrolling
-set scrolloff=10
+" Git commit messages wrapping
+" gq<motion> / visual mode selection + gq reformat existing text
+au FileType gitcommit set tw=72
+au FileType gitcommit set cc=72
