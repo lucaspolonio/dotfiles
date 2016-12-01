@@ -121,6 +121,20 @@ var universalLayout = function() {
   }
 };
 
+var gridHash = {
+  "grids" : {
+    "2560x1600" : {
+      "width" : 12,
+      "height" : 14
+    },
+    "1440x900" : {
+      "width" : 6,
+      "height" : 7
+    }
+  },
+  "padding" : 2
+}
+
 // Batch bind everything. Less typing.
 S.bnda({
   // Layout Bindings
@@ -194,7 +208,7 @@ S.bnda({
   //"tab:cmd" : S.op("switch"),
 
   // Grid
-  "esc:ctrl" : S.op("grid")
+  "esc:ctrl" : S.op("grid", gridHash)
 });
 
 // Log that we're done configuring
