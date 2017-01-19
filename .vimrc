@@ -104,3 +104,6 @@ endif
 " gq<motion> / visual mode selection + gq reformat existing text
 au FileType gitcommit set tw=72
 au FileType gitcommit set cc=72
+
+" Command-t ignore files
+let g:CommandTWildIgnore=&wildignore . ",*/node_modules,*/build"
