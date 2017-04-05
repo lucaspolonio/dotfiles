@@ -136,7 +136,7 @@ var gridHash = {
 S.bnda({
   // Layout Bindings
   "padEnter:ctrl" : universalLayout,
-  "space:ctrl" : universalLayout,
+  "0:cmd" : universalLayout,
 
   // Basic Location Bindings
   // "pad0:ctrl" : lapChat,
