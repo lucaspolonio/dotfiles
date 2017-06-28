@@ -9,23 +9,26 @@ S.cfga({
 
 // Monitors
 var monTbolt  = "2560x1600";
-var monLaptop = "1440x900"; //"1920x1200";
+var monLaptopWork = "1440x900";
+var monLaptopHome = "1280x800";
 
 // Operations
-var lapFull = S.op("move", {
-  "screen" : monLaptop,
+var lapFullWork = S.op("move", {
+  "screen" : monLaptopWork,
   "x" : "screenOriginX",
   "y" : "screenOriginY",
   "width" : "screenSizeX",
   "height" : "screenSizeY"
 });
-var lapChat = S.op("corner", {
-  "screen" : monLaptop,
-  "direction" : "top-left",
-  "width" : "screenSizeX/9",
+
+var lapFullHome = S.op("move", {
+  "screen" : monLaptopHome,
+  "x" : "screenOriginX",
+  "y" : "screenOriginY",
+  "width" : "screenSizeX",
   "height" : "screenSizeY"
 });
-var lapMain = lapChat.dup({ "direction" : "top-right", "width" : "8*screenSizeX/9" });
+
 var tboltFull = S.op("move", {
   "screen" : monTbolt,
   "x" : "screenOriginX",
@@ -33,13 +36,7 @@ var tboltFull = S.op("move", {
   "width" : "screenSizeX",
   "height" : "screenSizeY"
 });
-var tboltBig = S.op("move", {
-  "screen" : monTbolt,
-  "x" : "screenOriginX+screenSizeX/3",
-  "y" : "screenOriginY",
-  "width" : "screenSizeX*2/3",
-  "height" : "screenSizeY",
-});
+
 var tboltChrome = S.op("move", {
   "screen" : monTbolt,
   "x" : "screenOriginX+screenSizeX*3/14",
@@ -47,30 +44,16 @@ var tboltChrome = S.op("move", {
   "width" : "screenSizeX*4/7",
   "height" : "screenSizeY*4/6",
 });
-var tboltLeft = tboltFull.dup({ "width" : "screenSizeX/3" });
-var tboltMid = tboltLeft.dup({ "x" : "screenOriginX+screenSizeX/3" });
-var tboltRight = tboltLeft.dup({ "x" : "screenOriginX+(screenSizeX*2/3)" });
-var tboltLeftTop = tboltLeft.dup({ "height" : "screenSizeY/2" });
-var tboltLeftBot = tboltLeftTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
-var tboltMidTop = tboltMid.dup({ "height" : "screenSizeY/2" });
-var tboltMidBot = tboltMidTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
-var tboltRightTop = tboltRight.dup({ "height" : "screenSizeY/2" });
-var tboltRightBot = tboltRightTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
 
-// common layout hashes
-var lapMainHash = {
-  "operations" : [lapMain],
+// Layout hashes
+var lapFullHashWork = {
+  "operations" : [lapFullWork],
   "ignore-fail" : true,
   "repeat" : true
 };
-var lapFullHash = {
-  "operations" : [lapFull],
+var lapFullHashHome = {
+  "operations" : [lapFullHome],
   "ignore-fail" : true,
-  "repeat" : true
-};
-var tboltBigHash = {
-  "operations" : [tboltBig],
-  "sort-title" : true,
   "repeat" : true
 };
 var tboltChromeHash = {
@@ -85,34 +68,53 @@ var tboltFullHash = {
   "repeat" : true
 };
 
-// 2 monitor layout
-var twoMonitorLayout = S.lay("twoMonitor", {
+// 2 monitor layout Work
+var twoMonitorLayoutWork = S.lay("twoMonitorWork", {
   "Google Chrome" : tboltChromeHash,
   "iTerm2" : tboltFullHash,
-  "Slack" : lapFullHash,
+  "Slack" : lapFullHashWork,
   "Spotify" : tboltChromeHash
+});
+
+// 2 monitor layout Home
+var twoMonitorLayoutHome = S.lay("twoMonitorHome", {
+  "Google Chrome" : tboltChromeHash,
+  "iTerm2" : tboltFullHash,
+  "Slack" : lapFullHashHome,
+  "Spotify" : lapFullHashHome
 });
 
 // 1 monitor layout
 var oneMonitorLayout = S.lay("oneMonitor", {
-  "Google Chrome" : lapFullHash,
-  "iTerm2" : lapFullHash,
-  "Slack" : lapFullHash,
-  "Spotify" : lapFullHash
+  "Google Chrome" : lapFullHashWork,
+  "iTerm2" : lapFullHashWork,
+  "Slack" : lapFullHashWork,
+  "Spotify" : lapFullHashWork
 });
 
 // Defaults
-S.def(2, twoMonitorLayout);
+S.def([monLaptopWork, monTbolt], twoMonitorLayoutWork);
+S.def([monLaptopHome, monTbolt], twoMonitorLayoutHome);
 S.def(1, oneMonitorLayout);
 
 // Layout Operations
-var twoMonitor = S.op("layout", { "name" : twoMonitorLayout });
+var twoMonitorWork = S.op("layout", { "name" : twoMonitorLayoutWork });
+var twoMonitorHome = S.op("layout", { "name" : twoMonitorLayoutHome });
 var oneMonitor = S.op("layout", { "name" : oneMonitorLayout });
+
 var universalLayout = function() {
-  // Should probably make sure the resolutions match but w/e
-  S.log("SCREEN COUNT: "+S.screenCount());
   if (S.screenCount() === 2) {
-    twoMonitor.run();
+    slate.eachScreen(function(screen){
+      var rect = screen.rect();
+      var name = rect.width + "x" + rect.height;
+      if (name == monLaptopHome){
+        twoMonitorHome.run();
+        return;
+      } else if (name == monLaptopWork) {
+        twoMonitorWork.run();
+        return;
+      }
+    });
   } else if (S.screenCount() === 1) {
     oneMonitor.run();
   }
@@ -120,17 +122,31 @@ var universalLayout = function() {
 
 var gridHash = {
   "grids" : {
-    "2560x1600" : {
+     monTbolt: {
       "width" : 12,
       "height" : 14
     },
-    "1440x900" : {
+    monLaptopWork : {
+      "width" : 6,
+      "height" : 7
+    },
+    monLaptopHome : {
       "width" : 6,
       "height" : 7
     }
   },
   "padding" : 2
 }
+
+// var tboltLeft = tboltFull.dup({ "width" : "screenSizeX/3" });
+// var tboltMid = tboltLeft.dup({ "x" : "screenOriginX+screenSizeX/3" });
+// var tboltRight = tboltLeft.dup({ "x" : "screenOriginX+(screenSizeX*2/3)" });
+// var tboltLeftTop = tboltLeft.dup({ "height" : "screenSizeY/2" });
+// var tboltLeftBot = tboltLeftTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
+// var tboltMidTop = tboltMid.dup({ "height" : "screenSizeY/2" });
+// var tboltMidBot = tboltMidTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
+// var tboltRightTop = tboltRight.dup({ "height" : "screenSizeY/2" });
+// var tboltRightBot = tboltRightTop.dup({ "y" : "screenOriginY+screenSizeY/2" });
 
 // Batch bind everything. Less typing.
 S.bnda({
@@ -184,10 +200,10 @@ S.bnda({
   // "pad1:ctrl;alt" : S.op("throw", { "screen" : "2", "width" : "screenSizeX", "height" : "screenSizeY" }),
   // "pad2:ctrl;alt" : S.op("throw", { "screen" : "1", "width" : "screenSizeX", "height" : "screenSizeY" }),
   // "pad3:ctrl;alt" : S.op("throw", { "screen" : "0", "width" : "screenSizeX", "height" : "screenSizeY" }),
-  "right:ctrl;alt;cmd" : S.op("throw", { "screen" : "right", "width" : "screenSizeX", "height" : "screenSizeY" }),
-  "left:ctrl;alt;cmd" : S.op("throw", { "screen" : "left", "width" : "screenSizeX", "height" : "screenSizeY" }),
-  "up:ctrl;alt;cmd" : S.op("throw", { "screen" : "up", "width" : "screenSizeX", "height" : "screenSizeY" }),
-  "down:ctrl;alt;cmd" : S.op("throw", { "screen" : "down", "width" : "screenSizeX", "height" : "screenSizeY" }),
+  // "right:ctrl;alt;cmd" : S.op("throw", { "screen" : "right", "width" : "screenSizeX", "height" : "screenSizeY" }),
+  // "left:ctrl;alt;cmd" : S.op("throw", { "screen" : "left", "width" : "screenSizeX", "height" : "screenSizeY" }),
+  // "up:ctrl;alt;cmd" : S.op("throw", { "screen" : "up", "width" : "screenSizeX", "height" : "screenSizeY" }),
+  // "down:ctrl;alt;cmd" : S.op("throw", { "screen" : "down", "width" : "screenSizeX", "height" : "screenSizeY" }),
 
   // Focus Bindings
   // NOTE: some of these may *not* work if you have not removed the expose/spaces/mission control bindings
