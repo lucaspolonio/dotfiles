@@ -16,6 +16,7 @@ Plugin 'vim-airline/vim-airline-themes'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'elixir-lang/vim-elixir'
 Plugin 'tpope/vim-fugitive'
+Plugin 'jparise/vim-graphql'
 call vundle#end()
 
 " Leader comma
