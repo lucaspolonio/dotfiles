@@ -1,11 +1,22 @@
 set nocompatible
+
+call plug#begin('~/.vim/plugged')
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+call plug#end()
+
 filetype off
+
+" Load vim-plug if it's not present
+if empty(glob("~/.vim/autoload/plug.vim"))
+  execute 'mkdir -p ~/.vim/plugged'
+  execute 'mkdir -p ~/.vim/autoload'
+  execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+endif
 
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 Plugin 'mileszs/ack.vim'
-Plugin 'wincent/command-t'
 Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'myusuf3/numbers.vim'
@@ -107,8 +118,8 @@ endif
 au FileType gitcommit set tw=72
 au FileType gitcommit set cc=72
 
-" Command-t ignore files
-let g:CommandTWildIgnore=&wildignore . ",*/node_modules,*/build"
+" fzf instead of command-t
+nmap <leader>t :Files<cr>
 
 " Some handy abbreviations
 :iabbrev pry!! require "pry"; binding.pry
