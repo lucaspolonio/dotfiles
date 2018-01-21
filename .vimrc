@@ -1,34 +1,26 @@
 set nocompatible
 
-call plug#begin('~/.vim/plugged')
-Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
-call plug#end()
-
-filetype off
-
-" Load vim-plug if it's not present
-if empty(glob("~/.vim/autoload/plug.vim"))
-  execute 'mkdir -p ~/.vim/plugged'
-  execute 'mkdir -p ~/.vim/autoload'
-  execute '!curl -fLo ~/.vim/autoload/plug.vim https://raw.github.com/junegunn/vim-plug/master/plug.vim'
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
-Plugin 'mileszs/ack.vim'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'myusuf3/numbers.vim'
-Plugin 'ervandew/supertab'
-Plugin 'vim-scripts/Syntastic'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'elixir-lang/vim-elixir'
-Plugin 'tpope/vim-fugitive'
-Plugin 'jparise/vim-graphql'
-call vundle#end()
+call plug#begin('~/.vim/plugged')
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
+Plug 'mileszs/ack.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'myusuf3/numbers.vim'
+Plug 'ervandew/supertab'
+Plug 'vim-scripts/Syntastic'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'altercation/vim-colors-solarized'
+Plug 'elixir-lang/vim-elixir'
+Plug 'tpope/vim-fugitive'
+Plug 'jparise/vim-graphql'
+call plug#end()
 
 " Leader comma
 let mapleader = ","
