@@ -107,3 +107,7 @@ au FileType gitcommit set cc=72
 
 " Command-t ignore files
 let g:CommandTWildIgnore=&wildignore . ",*/node_modules,*/build"
+
+" Some handy abbreviations
+:iabbrev pry!! require "pry"; binding.pry
+:iabbrev iex!! require IEx; IEx.pry
