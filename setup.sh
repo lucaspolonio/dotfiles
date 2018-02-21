@@ -20,6 +20,8 @@ git clone https://github.com/lucaspolonio/dotfiles.git
 cd ~
 ln ~/projects/dotfiles/.* .
 
+brew update
+
 # install rbenv, latest MRI versions and bundler
 brew install rbenv
 rbenv install 2.4.1
@@ -58,6 +60,11 @@ make
 cd /Applications && curl http://www.ninjamonkeysoftware.com/slate/versions/slate-latest.tar.gz | tar -xz
 # TODO: open slate.app
 
+# High sierra workaround for cURL error `LibreSSL SSL_connect: SSL_ERROR_SYSCALL`
+#https://github.com/libressl-portable/portable/issues/369#issuecomment-364188373
+# brew install libressl
+# brew install curl
+# echo 'export PATH="/usr/local/opt/curl/bin:$PATH"' >> ~/.zshrc
 
 
 
