@@ -20,6 +20,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
 Plug 'jparise/vim-graphql'
+Plug 'mhinz/vim-mix-format'
 call plug#end()
 
 " Leader comma
@@ -116,3 +117,6 @@ nmap <leader>t :Files<cr>
 " Some handy abbreviations
 :iabbrev pry!! require "pry"; binding.pry
 :iabbrev iex!! require IEx; IEx.pry
+
+" Run Elixir's `mix format` on save
+let g:mix_format_on_save = 1
