@@ -21,6 +21,7 @@ Plug 'elixir-lang/vim-elixir'
 Plug 'tpope/vim-fugitive'
 Plug 'jparise/vim-graphql'
 Plug 'mhinz/vim-mix-format'
+Plug 'leafgarland/typescript-vim'
 call plug#end()
 
 " Leader comma
@@ -120,3 +121,6 @@ nmap <leader>t :Files<cr>
 
 " Run Elixir's `mix format` on save
 let g:mix_format_on_save = 1
+
+setlocal foldmethod=expr
+setlocal foldexpr=elixir#folding#elixir_folds(v:lnum)
