@@ -95,7 +95,7 @@ alias zshconfig="vim ~/.zshrc"
 alias zshreload="source ~/.zshrc"
 source <(kubectl completion zsh)
 source "/usr/local/opt/kube-ps1/share/kube-ps1.sh"
-PS1=$PS1'$(kube_ps1) ' # https://github.com/jonmosco/kube-ps1#customization
+PS1='$(kube_ps1) '$PS1 # https://github.com/jonmosco/kube-ps1#customization
 
 # Ruby/Rails
 eval "$(rbenv init -)"
