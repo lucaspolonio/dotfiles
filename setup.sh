@@ -44,6 +44,11 @@ brew install slate
 brew install readline
 brew install wrk
 brew install adr-tools
+brew install fd
+brew install bat
+
+brew tap aykamko/tag-ag
+brew install tag-ag
 
 # mvim, vundle and vim plugins
 brew install macvim --with-override-system-vim

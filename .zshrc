@@ -88,6 +88,7 @@ export PATH="$(yarn global bin):$PATH"
 
 alias vim="mvim -v"
 alias c="clear"
+alias cat="bat"
 
 # oh-my-zsh
 set KEYTIMEOUT=10
